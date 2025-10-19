@@ -1,125 +1,102 @@
-import Link from 'next/link'
-import { headers } from 'next/headers'
-import Recommendations from '@/components/Recommendations'
-
-function getBaseUrl() {
-  try {
-    const h = headers()
-    const host = h.get('host') || 'localhost:3000'
-    const proto = h.get('x-forwarded-proto') || 'http'
-    return `${proto}://${host}`
-  } catch {
-    return process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-  }
-}
-
-async function getAnnouncements() {
-  const base = getBaseUrl()
-  const res = await fetch(`${base}/api/announcements`, { cache: 'no-store' })
-  if (!res.ok) return []
-  const j = await res.json()
-  return j.announcements as { id: string, title: string, body: string }[]
-}
-
-async function getFeaturedEvents() {
-  const base = getBaseUrl()
-  const params = new URLSearchParams({ sort: 'date', order: 'asc' })
-  const res = await fetch(`${base}/api/events?${params.toString()}`, { cache: 'no-store' })
-  if (!res.ok) return []
-  const j = await res.json()
-  return (j.events as { id: string, title: string, date: string, location: string, priceCents: number, category?: string, imageUrl?: string }[]).slice(0, 6)
-}
-
 export default function HomePage() {
   return (
-    <section className="relative space-y-10">
-      {/* Hero */}
-      <div className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-purple-600 via-fuchsia-600 to-pink-600 text-white">
-        <div className="absolute -top-10 -right-10 h-40 w-40 bg-white/10 rounded-full blur-3xl" aria-hidden />
-        <div className="absolute -bottom-10 -left-10 h-40 w-40 bg-white/10 rounded-full blur-3xl" aria-hidden />
-        <div className="relative text-center space-y-5 p-12 md:p-16">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Fantasian Events</h1>
-          <p className="text-white/90 max-w-2xl mx-auto">
-            Découvrez, aimez et vivez les meilleurs événements. Billetterie simple, QR immédiat, recommandations IA.
-          </p>
-          <div className="flex items-center justify-center gap-3">
-            <Link href="/events" className="px-5 py-2.5 rounded-md bg-black/30 hover:bg-black/40">Voir les événements</Link>
-            <Link href="/account" className="px-5 py-2.5 rounded-md bg-white text-purple-700 hover:bg-white/90">Mon compte</Link>
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', maxWidth: '1200px', margin: '0 auto' }}>
+      <h1 style={{ fontSize: '3em', color: '#6b46c1', textAlign: 'center', marginBottom: '30px' }}>
+        Fantasia Events
+      </h1>
+      
+      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <p style={{ fontSize: '1.2em', color: '#4b5563', marginBottom: '20px' }}>
+          Site en ligne et fonctionnel ! Découvrez des expériences inoubliables.
+        </p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <button style={{ 
+            padding: '12px 24px', 
+            fontSize: '1.1em',
+            background: '#6b46c1', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: '6px',
+            cursor: 'pointer'
+          }}>
+            Découvrir les événements
+          </button>
+          <button style={{ 
+            padding: '12px 24px', 
+            fontSize: '1.1em',
+            background: 'transparent', 
+            color: '#6b46c1', 
+            border: '2px solid #6b46c1', 
+            borderRadius: '6px',
+            cursor: 'pointer'
+          }}>
+            Mon compte
+          </button>
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '40px' }}>
+        <div style={{ border: '1px solid #d1d5db', borderRadius: '8px', padding: '20px', background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+          <h3 style={{ color: '#1f2937', marginBottom: '10px' }}>Concert Jazz et Blues</h3>
+          <p style={{ color: '#6b7280', marginBottom: '15px' }}>Soirée musicale avec les meilleurs artistes de jazz et blues de la région.</p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ color: '#6b46c1', fontWeight: 'bold' }}>45€</span>
+            <span style={{ fontSize: '0.9em', color: '#9ca3af' }}>15 Feb 2024</span>
+          </div>
+        </div>
+        
+        <div style={{ border: '1px solid #d1d5db', borderRadius: '8px', padding: '20px', background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+          <h3 style={{ color: '#1f2937', marginBottom: '10px' }}>Festival Gastronomique</h3>
+          <p style={{ color: '#6b7280', marginBottom: '15px' }}>Découvrez les saveurs du monde avec nos chefs étoilés.</p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ color: '#6b46c1', fontWeight: 'bold' }}>35€</span>
+            <span style={{ fontSize: '0.9em', color: '#9ca3af' }}>20 Feb 2024</span>
+          </div>
+        </div>
+        
+        <div style={{ border: '1px solid #d1d5db', borderRadius: '8px', padding: '20px', background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+          <h3 style={{ color: '#1f2937', marginBottom: '10px' }}>Spectacle de Danse</h3>
+          <p style={{ color: '#6b7280', marginBottom: '15px' }}>Ballet moderne et danses contemporaines par la troupe nationale.</p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ color: '#6b46c1', fontWeight: 'bold' }}>55€</span>
+            <span style={{ fontSize: '0.9em', color: '#9ca3af' }}>25 Feb 2024</span>
           </div>
         </div>
       </div>
 
-      {/* Quick categories */}
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="text-sm text-gray-600 mr-2">Catégories populaires:</span>
-        {['Concert','Festival','Conférence','Sport','Théâtre','Famille'].map(c => (
-          <Link key={c} href={`/events?category=${encodeURIComponent(c)}`} className="text-sm px-3 py-1 rounded-full border hover:bg-gray-50">
-            {c}
-          </Link>
-        ))}
+      <div style={{ background: '#f9fafb', padding: '30px', borderRadius: '8px', marginTop: '40px' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#1f2937' }}>Contact</h2>
+        <form style={{ display: 'flex', flexDirection: 'column', gap: '15px', maxWidth: '500px', margin: '0 auto' }}>
+          <input 
+            type="text" 
+            placeholder="Nom" 
+            style={{ padding: '12px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '1em' }} 
+          />
+          <input 
+            type="email" 
+            placeholder="Email" 
+            style={{ padding: '12px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '1em' }} 
+          />
+          <button 
+            type="submit" 
+            style={{ 
+              padding: '12px', 
+              background: '#6b46c1', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: '6px', 
+              cursor: 'pointer',
+              fontSize: '1em'
+            }}
+          >
+            Envoyer
+          </button>
+        </form>
       </div>
-
-      {/* Highlights */}
-      <FeaturedGrid />
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <LatestAnnouncements />
-        {/* AI Recommendations panel */}
-        <Recommendations />
-      </div>
-    </section>
-  )
-}
-
-async function LatestAnnouncements() {
-  const items = await getAnnouncements()
-  return (
-    <div className="p-6 border rounded-lg">
-      <h2 className="font-semibold mb-2">Actualités & Annonces</h2>
-      {items.length === 0 ? (
-        <p className="text-sm text-gray-600">Aucune annonce pour le moment.</p>
-      ) : (
-        <ul className="text-sm list-disc pl-5 space-y-1">
-          {items.map(a => (<li key={a.id}><span className="font-medium">{a.title}:</span> {a.body}</li>))}
-        </ul>
-      )}
-    </div>
-  )
-}
-
-async function FeaturedGrid() {
-  const events = await getFeaturedEvents()
-  return (
-    <div className="space-y-4">
-      <div className="flex items-end justify-between">
-        <h2 className="text-xl font-semibold">Événements à venir</h2>
-        <Link href="/events" className="text-sm text-brand underline">Tout voir</Link>
-      </div>
-      {events.length === 0 ? (
-        <p className="text-gray-600">Aucun événement pour le moment.</p>
-      ) : (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {events.map(e => (
-            <li key={e.id} className="group rounded-xl border overflow-hidden bg-white/70 dark:bg-gray-900/50 backdrop-blur shadow-card">
-              <div className="relative h-44">
-                <img src={e.imageUrl || 'https://picsum.photos/seed/fantasia-featured/800/500'} alt={e.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                {e.category && <span className="absolute top-2 left-2 text-xs px-2 py-1 rounded bg-black/60 text-white">{e.category}</span>}
-                <div className="absolute bottom-0 inset-x-0 p-3 bg-gradient-to-t from-black/60 to-transparent text-white text-xs flex items-center justify-between">
-                  <span>{new Date(e.date).toLocaleDateString()} — {e.location}</span>
-                  <span className="px-2 py-1 rounded bg-brand">{(e.priceCents/100).toFixed(2)} €</span>
-                </div>
-              </div>
-              <div className="p-4 flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <h3 className="font-semibold truncate" title={e.title}>{e.title}</h3>
-                  <p className="text-xs text-gray-500 truncate">{e.location}</p>
-                </div>
-                <Link href={`/events/${e.id}`} className="text-sm shrink-0 px-3 py-1.5 rounded border hover:bg-gray-50">Voir</Link>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      
+      <footer style={{ textAlign: 'center', marginTop: '50px', padding: '20px', borderTop: '1px solid #e5e7eb' }}>
+        <p style={{ color: '#6b7280' }}>© 2024 Fantasia Events - Déployé avec succès !</p>
+      </footer>
     </div>
   )
 }
