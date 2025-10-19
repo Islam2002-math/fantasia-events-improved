@@ -200,7 +200,7 @@ export default function Ticket({ event, user, ticketId, qrPayload, className = "
                   target="_blank"
                   className="inline-block bg-indigo-600 text-white px-3 py-2 rounded text-xs hover:bg-indigo-700 transition-colors"
                 >
-                  📱 Ouvrir sur mobile
+                  Ouvrir sur mobile
                 </a>
                 <details className="mt-2">
                   <summary className="cursor-pointer text-gray-500 hover:text-gray-700">

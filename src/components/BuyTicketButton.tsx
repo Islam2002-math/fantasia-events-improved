@@ -45,7 +45,7 @@ export default function BuyTicketButton({ eventId, priceCents }: { eventId: stri
           Chargement...
         </div>
       ) : (
-        `🎫 Acheter ${(priceCents/100).toFixed(2)} €`
+        `Acheter ${(priceCents/100).toFixed(2)} €`
       )}
     </button>
   )

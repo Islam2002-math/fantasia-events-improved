@@ -240,21 +240,21 @@ export default function CheckoutPage() {
                     onClick={() => useTestCard('visa')}
                     className="text-left p-2 bg-white rounded border hover:bg-gray-50"
                   >
-                    💳 <strong>Visa:</strong> 4242 4242 4242 4242 - 12/25 - 123
+                <strong>Visa:</strong> 4242 4242 4242 4242 - 12/25 - 123
                   </button>
                   <button
                     type="button"
                     onClick={() => useTestCard('mastercard')}
                     className="text-left p-2 bg-white rounded border hover:bg-gray-50"
                   >
-                    💳 <strong>Mastercard:</strong> 5555 5555 5555 4444 - 12/25 - 123
+                <strong>Mastercard:</strong> 5555 5555 5555 4444 - 12/25 - 123
                   </button>
                   <button
                     type="button"
                     onClick={() => useTestCard('amex')}
                     className="text-left p-2 bg-white rounded border hover:bg-gray-50"
                   >
-                    💳 <strong>American Express:</strong> 3782 8224 6310 005 - 12/25 - 1234
+                <strong>American Express:</strong> 3782 8224 6310 005 - 12/25 - 1234
                   </button>
                 </div>
               </div>
@@ -394,7 +394,7 @@ export default function CheckoutPage() {
                     Traitement en cours...
                   </div>
                 ) : (
-                  `💳 Payer ${(event.priceCents / 100).toFixed(2)} €`
+                  `Payer ${(event.priceCents / 100).toFixed(2)} €`
                 )}
               </button>
             </form>
