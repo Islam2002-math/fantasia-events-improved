@@ -176,25 +176,6 @@ export default function QRCodePage() {
         </div>
       </div>
 
-      {/* Style pour l'impression */}
-      <style jsx>{`
-        @media print {
-          body * {
-            visibility: hidden;
-          }
-          .print-content, .print-content * {
-            visibility: visible;
-          }
-          .print-content {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            text-align: center;
-            padding: 20px;
-          }
-        }
-      `}</style>
     </div>
   )
 }

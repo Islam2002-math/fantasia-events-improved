@@ -1,0 +1,10 @@
+ÉTAPE 3: Après avoir créé votre repo GitHub, copiez et exécutez ces commandes :
+
+git branch -M main
+git remote add origin https://github.com/VOTRE_USERNAME/fantasia-events.git
+git push -u origin main
+
+Remplacez VOTRE_USERNAME par votre vrai nom d'utilisateur GitHub.
+
+Exemple si votre username est "john123" :
+git remote add origin https://github.com/john123/fantasia-events.git

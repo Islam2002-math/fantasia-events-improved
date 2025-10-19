@@ -190,23 +190,6 @@ export default function CheckoutSuccessPage() {
           </Link>
         </div>
 
-        {/* Style pour l'impression */}
-        <style jsx>{`
-          @media print {
-            body * {
-              visibility: hidden;
-            }
-            #ticket-component, #ticket-component * {
-              visibility: visible;
-            }
-            #ticket-component {
-              position: absolute;
-              left: 0;
-              top: 0;
-              width: 100%;
-            }
-          }
-        `}</style>
       </div>
     </div>
   )
