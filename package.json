@@ -1,0 +1,129 @@
+{
+  "name": "fantasia-events-improved",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Professional event management web application with AI features",
+  "keywords": [
+    "events",
+    "next.js",
+    "typescript",
+    "prisma",
+    "stripe",
+    "ai"
+  ],
+  "author": "Fantasia Events Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,md}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push",
+    "prisma:studio": "prisma studio",
+    "prisma:reset": "prisma migrate reset",
+    "db:seed": "prisma db seed",
+    "db:migrate": "prisma migrate dev",
+    "user:promote": "node prisma/promote-admin.mjs",
+    "security:audit": "npm audit --audit-level moderate",
+    "security:scan": "npm run security:audit && retire -p",
+    "security:zap": "docker run --rm -t -v %cd%:/zap/wrk owasp/zap2docker-stable zap-baseline.py -t http://localhost:3000 -r zap-report.html",
+    "clean": "rm -rf .next node_modules dist",
+    "reinstall": "npm run clean && npm install",
+    "prepare": "husky install || true",
+    "pre-commit": "lint-staged",
+    "validate": "npm run type-check && npm run lint && npm run test",
+    "docker:build": "docker build -t fantasia-events .",
+    "docker:run": "docker run -p 3000:3000 fantasia-events"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.mjs"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
+    "@prisma/client": "^5.20.0",
+    "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "iron-session": "^8.0.1",
+    "lucide-react": "^0.445.0",
+    "next": "^14.2.15",
+    "nodemailer": "^7.0.9",
+    "qrcode": "^1.5.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.0",
+    "react-hot-toast": "^2.4.1",
+    "stripe": "^19.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^22.7.7",
+    "@types/nodemailer": "^7.0.2",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/parser": "^8.8.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vitest/coverage-v8": "^2.1.1",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.15",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.30.0",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "eslint-plugin-react": "^7.37.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "husky": "^8.0.3",
+    "jsdom": "^27.0.1",
+    "lint-staged": "^15.2.10",
+    "postcss": "^8.4.47",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.6",
+    "prisma": "^5.20.0",
+    "retire": "^2.1.6",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.3%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

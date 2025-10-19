@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 255 255 255;
+  --fg: 17 24 39;
+
+  /* New Magical Variables */
+  --neon-cyan: #00f5ff;
+  --neon-pink: #ff0080;
+  --neon-purple: #8000ff;
+  --neon-orange: #ff8000;
+  --gradient-magic: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
+  --gradient-ocean: linear-gradient(45deg, #2196F3, #21CBF3, #80DEEA, #B2EBF2);
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+/* SOFTE ANIMATED BACKGROUND WITH "FANTASIA EVENTS" TEXT */
+body {
+  color: rgb(var(--fg));
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.05) 100%);
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* FANTASIA EVENTS TEXT ON BACKGROUND */
+body::after {
+  content: 'FANTASIA EVENTS';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8rem;
+  font-weight: 900;
+  color: rgba(99, 102, 241, 0.15);
+  text-align: center;
+  pointer-events: none;
+  z-index: -2;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-transform: uppercase;
+  font-family: 'Arial Black', sans-serif;
+}
+
+/* SUBTLE ANIMATED PARTICLES - MUCH MORE SUBTLE */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(236, 72, 153, 0.06) 0%, transparent 40%);
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/***** Light/Dark helpers *****/
+:root.dark {
+  --bg: 17 24 39;
+  --fg: 243 244 246;
+
+  /* Dark mode gradient */
+  body {
+    background: linear-gradient(-45deg, #0f0f23, #1a1a2e, #16213e, #0f3460);
+  }
+}
+
+/* MAGICAL TEXT EFFECTS - VISIBLE IMMEDIATAE */
+h1, h2, h3, h4 {
+  background: var(--gradient-magic);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textRainbow 4s ease-in-out infinite;
+  font-weight: 700;
+}
+
+@keyframes textRainbow {
+  0%, 100% { filter: hue-rotate(0deg); }
+  25% { filter: hue-rotate(90deg); }
+  50% { filter: hue-rotate(180deg); }
+  75% { filter: hue-rotate(270deg); }
+}
+
+/* INTERACTIVE BUTTONS WITH GLOW - IMMEDIATE FEEDBACK */
+button, [role="button"], .btn, .px-3.py-2.border {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-radius: 12px;
+}
+
+button:hover, [role="button"]:hover, .btn:hover, .px-3.py-2.border:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:
+    0 10px 25px rgba(255, 136, 0, 0.3),
+    0 0 20px rgba(255, 136, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0 10px rgba(255, 136, 0, 0.8);
+}
+
+button:before, [role="button"]:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 136, 0, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:hover:before, [role="button"]:hover:before {
+  width: 300px;
+  height: 300px;
+}
+
+/* MAGICAL CARDS - 3D FLIP & HOVER - VISIBLE IMMEDIATELY */
+.recognized li. true, li.class-l rounded-lg border shadow-card overflow-hidden bg-white/70 dark:bg-gray-900/50 backdrop-blur, liroup rounded-xl border overflow-hidden bg-white/70 dark:bg-gray-900/50 backdrop-blur shadow-cards {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+li.rounded-lg:hover, li.rounded-xl:hover {
+  transform: perspective(1000px) rotateX(-10deg) rotateY(10deg) translateZ(30px) scale(1.05);
+  box-shadow:
+    0 35px 80px -20px rgba(255, 136, 0, 0.4),
+    0 15px 40px rgba(255, 136, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* AUTOSLIDE ANIMATION FOR IMAGES */
+img {
+  transition: transform 0.4s ease;
+}
+
+img:hover {
+  transform: scale(1.1);
+}
+
+/* LOADING SPINNER MAGIC */
+.loading::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--neon-cyan);
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

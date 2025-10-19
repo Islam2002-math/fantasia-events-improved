@@ -1,0 +1,135 @@
+// Prisma schema for Fantasia Events
+// SQLite for local development
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("USER")
+  emailVerified DateTime?
+  createdAt DateTime @default(now())
+  tickets   Ticket[]
+  comments  Comment[]
+  likes     Like[]
+  favorites Favorite[]
+  passwordResetTokens PasswordResetToken[]
+  emailVerificationTokens EmailVerificationToken[]
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   String
+  createdAt DateTime @default(now())
+  @@unique([userId, eventId])
+}
+
+model EventImage {
+  id        String   @id @default(cuid())
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   String
+  url       String
+  createdAt DateTime @default(now())
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  tokenHash String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  @@index([userId])
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  tokenHash String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  @@index([userId])
+}
+
+model Event {
+  id          String      @id @default(cuid())
+  title       String
+  description String
+  location    String
+  date        DateTime
+  priceCents  Int
+  category    String?     // catégorie simple (ex: Concert, Festival)
+  capacity    Int         @default(100) // stock max de tickets
+  imageUrl    String?
+  latitude    Float?
+  longitude   Float?
+  createdAt   DateTime    @default(now())
+  announcements Announcement[]
+  tickets     Ticket[]
+  comments    Comment[]
+  likes       Like[]
+  favorites   Favorite[]
+  images      EventImage[]
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  createdAt DateTime @default(now())
+  event     Event?   @relation(fields: [eventId], references: [id])
+  eventId   String?
+}
+
+model Ticket {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   String
+  qrCode    String   // payload used for QR generation
+  createdAt DateTime @default(now())
+  usedAt    DateTime?
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  body      String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   String
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   String
+  createdAt DateTime @default(now())
+  @@unique([userId, eventId])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String
+  subject   String?
+  body      String
+  createdAt DateTime @default(now())
+}
