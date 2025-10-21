@@ -1,0 +1,25 @@
+# Dependencies
+/node_modules
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+/coverage
+/.nyc_output
+*.log
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Build outputs (except .next which is needed for deployment)
+/.next/cache
+/dist
+
+# Misc
+.DS_Store
+*.tsbuildinfo
