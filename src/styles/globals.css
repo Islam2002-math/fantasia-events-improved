@@ -124,7 +124,7 @@ button:hover:before, [role="button"]:hover:before {
 }
 
 /* MAGICAL CARDS - 3D FLIP & HOVER - VISIBLE IMMEDIATELY */
-.recognized li. true, li.class-l rounded-lg border shadow-card overflow-hidden bg-white/70 dark:bg-gray-900/50 backdrop-blur, liroup rounded-xl border overflow-hidden bg-white/70 dark:bg-gray-900/50 backdrop-blur shadow-cards {
+.card, li.rounded-lg, li.rounded-xl {
   transform-style: preserve-3d;
   transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;

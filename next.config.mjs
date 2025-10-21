@@ -8,11 +8,20 @@ const nextConfig = {
     // Unblock builds even if ESLint config outside this app is incompatible
     ignoreDuringBuilds: true,
   },
-  // Désactiver toute optimisation pour corriger le build
+  // Désactiver optimisations problématiques pour le build
   swcMinify: false,
   compress: false,
   optimizeFonts: false,
-  minify: false,
+  // Désactiver complètement la minification CSS
+  webpack: (config, { dev }) => {
+    if (!dev) {
+      // Désactiver cssnano qui cause l'erreur
+      config.optimization.minimizer = config.optimization.minimizer.filter(
+        (minimizer) => !minimizer.constructor.name.includes('Css')
+      );
+    }
+    return config;
+  },
   async headers() {
     // Temporarily disable custom headers to isolate 500 errors; re-enable after validation
     return []
